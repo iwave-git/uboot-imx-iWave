@@ -7,6 +7,13 @@
 #include <common.h>
 #include <env.h>
 #include <env_internal.h>
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+/* IWG27S: Support auto boot environment selection */
+#include <asm/mach-imx/boot_mode.h>
+
+/* IWG27S: Storing boot device number globally */
+extern enum boot_device get_boot_device(void);
+#endif
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -303,9 +310,26 @@ int env_init(void)
 		return -ENODEV;
 
 	if (ret == -ENOENT) {
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+		/* IWG27S: Support auto boot environment selection */
+		switch (get_boot_device()) {
+			case MMC1_BOOT:
+				gd->env_addr = (ulong)&default_environment_emmc[0];
+				gd->env_valid = ENV_VALID;
+				break;
+			case SD2_BOOT :
+				gd->env_addr = (ulong)&default_environment_msd[0];
+				gd->env_valid = ENV_VALID;
+				break;
+			default:
+				gd->env_addr = (ulong)&default_environment[0];
+				gd->env_valid = ENV_VALID;
+				break;
+		}
+#else
 		gd->env_addr = (ulong)&default_environment[0];
 		gd->env_valid = ENV_VALID;
-
+#endif
 		return 0;
 	}
 

@@ -26,7 +26,12 @@ u32 mxc_get_clock(enum mxc_clock clk)
 	switch (clk) {
 	case MXC_UART_CLK:
 		err = sc_pm_get_clock_rate(-1,
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+                                /* IWG27S: LPUART4: Configuring LPUART4 for iWave board */
+                                SC_R_UART_4, 2, &clkrate);
+#else
 				SC_R_UART_0, 2, &clkrate);
+#endif
 		if (err != SC_ERR_NONE) {
 			printf("sc get UART clk failed! err=%d\n", err);
 			return 0;

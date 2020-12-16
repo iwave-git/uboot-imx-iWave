@@ -28,7 +28,12 @@ int sc_pm_setup_uart(sc_rsrc_t uart_rsrc, sc_pm_clock_rate_t clk_rate)
 	if (ret)
 		return ret;
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: LPUART4: Configuring LPUART4 for iWave board */
+	lpcg_all_clock_on(LPUART_4_LPCG);
+#else
 	lpcg_all_clock_on(LPUART_0_LPCG);
+#endif
 
 	return 0;
 }

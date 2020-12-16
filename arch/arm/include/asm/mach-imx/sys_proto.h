@@ -48,6 +48,10 @@
 #define is_imx8md() (is_cpu_type(MXC_CPU_IMX8MD))
 #define is_imx8mql() (is_cpu_type(MXC_CPU_IMX8MQL))
 #define is_imx8qm() (is_cpu_type(MXC_CPU_IMX8QM))
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+/* IWG27S: CPU: Support for i.MX8QP Variant */
+#define is_imx8qp() (is_cpu_type(MXC_CPU_IMX8QP))
+#endif
 #define is_imx8mm() (is_cpu_type(MXC_CPU_IMX8MM) || is_cpu_type(MXC_CPU_IMX8MML) ||\
 	is_cpu_type(MXC_CPU_IMX8MMD) || is_cpu_type(MXC_CPU_IMX8MMDL) || \
 	is_cpu_type(MXC_CPU_IMX8MMS) || is_cpu_type(MXC_CPU_IMX8MMSL))

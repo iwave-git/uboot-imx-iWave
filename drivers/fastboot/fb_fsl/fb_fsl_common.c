@@ -182,6 +182,12 @@ void board_fastboot_setup(void)
 	} else if (is_imx8qm()) {
 		if (!env_get("soc_type"))
 			env_set("soc_type", "imx8qm");
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	} else if (is_imx8qp()) {
+		if (!env_get("soc_type"))
+			env_set("soc_type", "imx8qp");
+#endif
 	} else if (is_imx8qxp()) {
 		if (!env_get("soc_type"))
 			env_set("soc_type", "imx8qxp");

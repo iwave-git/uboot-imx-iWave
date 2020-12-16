@@ -13,6 +13,12 @@
 #include <linux/compat.h>
 #include "mmc_private.h"
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+/* IWG27S: Get Board revision number globally */
+extern int pcb_rev;
+void get_board_info(void);
+#endif
+
 int dm_mmc_send_cmd(struct udevice *dev, struct mmc_cmd *cmd,
 		    struct mmc_data *data)
 {
@@ -215,10 +221,23 @@ int mmc_of_parse(struct udevice *dev, struct mmc_config *cfg)
 			cfg->host_caps |= MMC_CAP_NEEDS_POLL;
 	}
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: Get Board revision number globally */
+	get_board_info();
+
+	/* IWG27S: Set SDIO voltage to fixed 3.3v only for B0 PMIC supported R1.x board */
+	if (pcb_rev == 0) {
+		if (dev_read_bool(dev, "no-1-8-v")) {
+			cfg->host_caps &= ~(UHS_CAPS | MMC_MODE_HS200 |
+					MMC_MODE_HS400 | MMC_MODE_HS400_ES);
+		}
+	}
+#else
 	if (dev_read_bool(dev, "no-1-8-v")) {
 		cfg->host_caps &= ~(UHS_CAPS | MMC_MODE_HS200 |
 				    MMC_MODE_HS400 | MMC_MODE_HS400_ES);
 	}
+#endif
 
 	return 0;
 }

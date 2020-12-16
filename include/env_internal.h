@@ -112,6 +112,11 @@ extern env_t embedded_environment;
 #endif /* ENV_IS_EMBEDDED */
 
 extern const unsigned char default_environment[];
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+/* IWG27S: Declare default environment for boot device */
+extern const unsigned char default_environment_msd[];
+extern const unsigned char default_environment_emmc[];
+#endif
 
 #ifndef DO_DEPS_ONLY
 

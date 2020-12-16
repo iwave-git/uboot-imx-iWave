@@ -610,6 +610,8 @@ static int imx8_sata_probe(struct udevice *dev, struct imx_ahci_priv *imxpriv)
 	}
 #endif
 
+#ifndef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: SATA: Commenting SATA clock GPIO */ 
 	/* Fetch GPIO, then enable the external OSC */
 	ret = gpio_request_by_name(dev, "clkreq-gpio", 0, &imxpriv->clkreq_gpio,
 				   (GPIOD_IS_OUT | GPIOD_IS_OUT_ACTIVE));
@@ -617,7 +619,7 @@ static int imx8_sata_probe(struct udevice *dev, struct imx_ahci_priv *imxpriv)
 		dev_err(dev, "%d unable to get clkreq.\n", ret);
 		return ret;
 	}
-
+#endif
 	return 0;
 }
 

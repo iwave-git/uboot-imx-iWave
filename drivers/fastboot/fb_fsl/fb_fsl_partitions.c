@@ -53,9 +53,19 @@ unsigned int g_pcount;
 
 static ulong bootloader_mmc_offset(void)
 {
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	if (is_imx8mq() || is_imx8mm() || ((is_imx8qm() || is_imx8qp() || is_imx8qxp()) && is_soc_rev(CHIP_REV_A)))
+#else
 	if (is_imx8mq() || is_imx8mm() || ((is_imx8qm() || is_imx8qxp()) && is_soc_rev(CHIP_REV_A)))
+#endif
 		return 0x8400;
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	else if (is_imx8qm() || is_imx8qp() || (is_imx8qxp() && !is_soc_rev(CHIP_REV_B))) {
+#else
 	else if (is_imx8qm() || (is_imx8qxp() && !is_soc_rev(CHIP_REV_B))) {
+#endif
 		if (MEK_8QM_EMMC == fastboot_devinfo.dev_id)
 		/* target device is eMMC boot0 partition, bootloader offset is 0x0 */
 			return 0x0;

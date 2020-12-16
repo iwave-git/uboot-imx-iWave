@@ -79,6 +79,21 @@ config IMX_CONTAINER_CFG
 	  This is to specific the cfg file for generating container
 	  image which will be loaded by SPL.
 
+config SDRAM_SIZE_2GB
+	bool "Support 2GB IWG27S"
+	depends on TARGET_IMX8QM_IWG27S
+
+config SDRAM_SIZE_4GB
+	bool "Support 4GB IWG27S"
+	depends on TARGET_IMX8QM_IWG27S
+
+config SDRAM_SIZE_8GB
+	bool "Support 8GB IWG27S"
+	depends on TARGET_IMX8QM_IWG27S
+
+config TARGET_IMX8QM_IWG27S_UUU
+	bool "Support i.MX8QM lpddr4 iwave board uuu"
+
 choice
 	prompt "i.MX8 board select"
 	optional
@@ -102,6 +117,11 @@ config TARGET_GIEDI
 	bool "Support i.MX8QXP Capricorn Giedi board"
 	select BOARD_LATE_INIT
 	select IMX8QXP
+
+config TARGET_IMX8QM_IWG27S
+	bool "Support i.MX8QM lpddr4 iwave board"
+	select BOARD_LATE_INIT
+	select IMX8QM
 
 config TARGET_IMX8QM_MEK
 	bool "Support i.MX8QM MEK board"
@@ -168,6 +188,7 @@ config TARGET_IMX8DXL_DDR3_VAL
 endchoice
 
 source "board/freescale/imx8qm_mek/Kconfig"
+source "board/freescale/imx8qm_iwg27s/Kconfig"
 source "board/freescale/imx8qxp_mek/Kconfig"
 source "board/freescale/imx8qm_val/Kconfig"
 source "board/freescale/imx8qxp_val/Kconfig"

@@ -96,7 +96,12 @@ int arch_cpu_init_dm(void)
 
 	struct pass_over_info_t *pass_over;
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	if ((is_imx8qm() || is_imx8qp() || is_imx8qxp()) && is_soc_rev(CHIP_REV_A)) {
+#else
 	if ((is_imx8qm() || is_imx8qxp()) && is_soc_rev(CHIP_REV_A)) {
+#endif
 		pass_over = get_pass_over_info();
 		if (pass_over && pass_over->g_ap_mu == 0) {
 			/*
@@ -107,7 +112,12 @@ int arch_cpu_init_dm(void)
 		}
 	}
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	if (is_imx8qm() || is_imx8qp()) {
+#else
 	if (is_imx8qm()) {
+#endif
 		ret = sc_pm_set_resource_power_mode(-1, SC_R_SMMU,
 						    SC_PM_PW_MODE_ON);
 		if (ret)
@@ -909,13 +919,34 @@ u32 get_cpu_rev(void)
 {
 	u32 id = 0, rev = 0;
 	int ret;
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	uint32_t val = 0;
+#endif
 
 	ret = sc_misc_get_control(-1, SC_R_SYSTEM, SC_C_ID, &id);
 	if (ret)
 		return 0;
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	ret = sc_misc_otp_fuse_read(-1, 0x06, &val);
+	if (ret < 0) {
+		printf("%s: fuse %d, err: %d\n", __func__, val, ret);
+		return 1;
+	}
+#endif
 	rev = (id >> 5)  & 0xf;
+
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	if(val & 0x20)
+		id = (id & 0x1f) + MXC_SOC_IMX8 + 0x2;/* Dummy ID for chip */
+	else
+		id = (id & 0x1f) + MXC_SOC_IMX8;/* Dummy ID for chip */
+#else
 	id = (id & 0x1f) + MXC_SOC_IMX8;  /* Dummy ID for chip */
+#endif
 
 	return (id << 12) | rev;
 }
@@ -1016,7 +1047,12 @@ bool check_m4_parts_boot(void)
 	if (sc_pm_is_partition_started(-1, m4_parts[0]))
 		return true;
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	if (is_imx8qm() || is_imx8qp()) {
+#else
 	if (is_imx8qm()) {
+#endif
 		err = sc_rm_get_resource_owner(-1, SC_R_M4_1_PID0, &m4_parts[1]);
 		if (err != SC_ERR_NONE) {
 			printf("%s get resource [%d] owner error: %d\n", __func__, SC_R_M4_1_PID0, err);
@@ -1082,7 +1118,12 @@ struct udevice * board_imx_vservice_find_mu(struct udevice *dev)
 			return m4_mu[0];
 	}
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	if (is_imx8qm() || is_imx8qp()) {
+#else
 	if (is_imx8qm()) {
+#endif
 		err = sc_rm_get_resource_owner(-1, SC_R_M4_1_PID0, &m4_parts[1]);
 		if (err != SC_ERR_NONE) {
 			printf("%s get resource [%d] owner error: %d\n", __func__, SC_R_M4_1_PID0, err);

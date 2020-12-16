@@ -225,7 +225,13 @@ static int prepare_ring(struct xhci_ctrl *ctrl, struct xhci_ring *ep_ring,
 		puts("WARN waiting for error on ep to be cleared\n");
 		return -EINVAL;
 	case EP_STATE_HALTED:
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+		/* IWG27S: USB: Workaround for USB R3.0 reset */
+		debug("WARN halted endpoint, queueing URB anyway.\n");
+		return -EPIPE;
+#else
 		puts("WARN halted endpoint, queueing URB anyway.\n");
+#endif
 	case EP_STATE_STOPPED:
 	case EP_STATE_RUNNING:
 		debug("EP STATE RUNNING.\n");

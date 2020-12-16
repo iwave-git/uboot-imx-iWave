@@ -213,7 +213,12 @@ static int imx8_dc_video_init(struct udevice *dev)
 
 	debug("%s\n", __func__);
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27S
+	/* IWG27S: CPU: Support for i.MX8QP Variant */
+	if (imxdpuv1_id != 0 || (imxdpuv1_id == 1 && !is_imx8qm() && !is_imx8qp())) {
+#else
 	if (imxdpuv1_id != 0 || (imxdpuv1_id == 1 && !is_imx8qm())) {
+#endif
 		printf("%s(): invalid imxdpuv1_id %d", __func__, imxdpuv1_id);
 		return -ENODEV;
 	}
