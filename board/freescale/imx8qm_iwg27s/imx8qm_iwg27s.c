@@ -21,6 +21,7 @@
 #include <asm/arch/iomux.h>
 #include <asm/arch/sys_proto.h>
 #include <asm/arch/lpcg.h>
+#include <asm/setup.h>
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -327,10 +328,16 @@ void get_board_info(void)
 
 static void print_board_info(void)
 {
+	struct tag_serialnr serialnr;
+
+	/*IWG27S : Adding CPU Unique ID read support*/
+	get_board_serial(&serialnr);
+
 	printf ("\n");
 	printf ("Board Info:\n");
 	printf ("\tBSP Version     : %s\n", BSP_VERSION);
 	printf ("\tSOM Version     : iW-PRGEE-AP-01-R%x.%x\n",pcb_rev+1,bom_rev);
+	printf ("\tCPU Unique ID   : 0X%08X%08X\n",serialnr.high,serialnr.low);
 	printf ("\n");
 }
 
