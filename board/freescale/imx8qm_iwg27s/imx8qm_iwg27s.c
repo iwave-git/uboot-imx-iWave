@@ -446,7 +446,7 @@ void iwg27s_fdt_update(void *fdt)
 	uint32_t reg[2];
 	int ret=0;
 
-	if (pcb_rev == 0) {
+	if (pcb_rev >= 1) {
 		/* IWG27S: Enable Voltage switching only for C1 PMIC supported R2.x board */
 		fdt_delprop(fdt, fdt_path_offset(fdt, "/bus@5b000000/mmc@5b020000"), "no-1-8-v");
 	}
