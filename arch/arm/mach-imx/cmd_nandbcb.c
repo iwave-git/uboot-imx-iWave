@@ -1490,7 +1490,12 @@ static int do_nandbcb(cmd_tbl_t *cmdtp, int flag, int argc,
 		plat_config = imx8mm_plat_config;
 	else if (is_imx8mn())
 		plat_config = imx8mn_plat_config;
+#ifdef CONFIG_TARGET_IMX8QM_IWG27M
+	/* IWG27M: CPU: Support for i.MX8QP Variant */
+	else if (is_imx8qm() || is_imx8qp() || is_imx8qxp() || is_imx8dxl())
+#else
 	else if (is_imx8qm() || is_imx8qxp() || is_imx8dxl())
+#endif
 		plat_config = imx8q_plat_config;
 	else {
 		printf("ERROR: Unknown platform\n");

@@ -175,7 +175,12 @@ static void update_fdt_edma_nodes(void *blob)
 	int nodeoff, ret;
 	struct edma_ch_map *edma_array;
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27M
+	/* IWG27M: CPU: Support for i.MX8QP Variant */
+	if (is_imx8qm() || is_imx8qp()) {
+#else
 	if (is_imx8qm()) {
+#endif
 		edma_array = edma_qm;
 		edma_size = ARRAY_SIZE(edma_qm);
 	} else {
@@ -591,7 +596,12 @@ int ft_system_setup(void *blob, bd_t *bd)
 #endif
 
 	update_fdt_edma_nodes(blob);
+#ifdef CONFIG_TARGET_IMX8QM_IWG27M
+	/* IWG27M: CPU: Support for i.MX8QP Variant */
+	if (is_imx8qm() || is_imx8qp()) {
+#else
 	if (is_imx8qm()) {
+#endif
 		ret = config_smmu_fdt(blob);
 		if (ret)
 			return ret;

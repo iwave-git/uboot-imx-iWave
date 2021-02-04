@@ -1001,6 +1001,10 @@ struct phy_device *phy_connect(struct mii_dev *bus, int addr,
 {
 	struct phy_device *phydev = NULL;
 	uint mask = (addr >= 0) ? (1 << addr) : 0xffffffff;
+#ifdef CONFIG_TARGET_IMX8QM_IWG27M
+	/* IWG27M: Ethernet Auto PHY Detection Support */
+	int phy_addr;
+#endif
 
 #ifdef CONFIG_PHY_FIXED
 	phydev = phy_connect_fixed(bus, dev, interface);
@@ -1016,8 +1020,22 @@ struct phy_device *phy_connect(struct mii_dev *bus, int addr,
 		phydev = phy_connect_gmii2rgmii(bus, dev, interface);
 #endif
 
+#ifdef CONFIG_TARGET_IMX8QM_IWG27M
+	/* IWG27M: Ethernet Auto PHY Detection Support */
+	if (!phydev) {
+		for (phy_addr = 0; phy_addr < PHY_MAX_ADDR; phy_addr++){
+			mask = (phy_addr >= 0) ? (1 << phy_addr) : 0xffffffff;;
+			phydev = phy_find_by_mask(bus, mask, interface);
+			if (phydev == NULL)
+				continue;
+			else
+				break;
+		}
+	}
+#else
 	if (!phydev)
 		phydev = phy_find_by_mask(bus, mask, interface);
+#endif
 
 	if (phydev)
 		phy_connect_dev(phydev, dev);

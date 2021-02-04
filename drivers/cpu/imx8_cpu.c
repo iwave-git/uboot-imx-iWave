@@ -30,6 +30,11 @@ const char *get_imx8_type(u32 imxtype)
 	case MXC_CPU_IMX8QXP:
 	case MXC_CPU_IMX8QXP_A0:
 		return "QXP";
+#ifdef CONFIG_TARGET_IMX8QM_IWG27M
+	/* IWG27M: CPU: Support for i.MX8QP Variant */
+	case MXC_CPU_IMX8QP:
+		return "QP";
+#endif
 	case MXC_CPU_IMX8QM:
 		return "QM";
 	case MXC_CPU_IMX8DXL:
