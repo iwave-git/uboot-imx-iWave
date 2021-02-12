@@ -283,7 +283,6 @@ void lvds_backlight_disable(void)
 #define BCONFIG_4 IMX_GPIO_NR(2, 7)
 #define BCONFIG_5 IMX_GPIO_NR(3, 1)
 #define BCONFIG_6 IMX_GPIO_NR(3, 25)
-#define BCONFIG_7 IMX_GPIO_NR(5, 23)
 
 int board_config_pads[] = {
 	BCONFIG_0,
@@ -293,7 +292,6 @@ int board_config_pads[] = {
 	BCONFIG_4,
 	BCONFIG_5,
 	BCONFIG_6,
-	BCONFIG_7,
 };
 
 static iomux_cfg_t board_cfg[] = {
@@ -304,34 +302,29 @@ static iomux_cfg_t board_cfg[] = {
 	SC_P_ESAI1_SCKT | MUX_MODE_ALT(3) | MUX_PAD_CTRL(GPIO_PAD_CFG_CTRL),
 	SC_P_MCLK_OUT0 | MUX_MODE_ALT(3) | MUX_PAD_CTRL(GPIO_PAD_CFG_CTRL),
 	SC_P_ADC_IN7 | MUX_MODE_ALT(3) | MUX_PAD_CTRL(GPIO_PAD_CFG_CTRL),
-	SC_P_USDHC1_STROBE | MUX_MODE_ALT(3) | MUX_PAD_CTRL(GPIO_PAD_CFG_CTRL),
 };
-
-void get_board_info(void)
-{
-	int i;
-
-	imx8_iomux_setup_multiple_pads(board_cfg, ARRAY_SIZE(board_cfg));
-
-	for (i=0;i<ARRAY_SIZE(board_config_pads);i++) {
-		if(i<=3) {
-			gpio_request(board_config_pads[i], "SOM-Revision-GPIO");
-			gpio_direction_input(board_config_pads[i]);
-			bom_rev |= (gpio_get_value(board_config_pads[i]) << i);
-		} else {
-			gpio_request(board_config_pads[i], "SOM-Revision-GPIO");
-			gpio_direction_input(board_config_pads[i]);
-			pcb_rev |= (gpio_get_value(board_config_pads[i]) << (i-4));
-		}
-	}
-}
 
 static void print_board_info(void)
 {
 	struct tag_serialnr serialnr;
+	int i;
 
 	/*IWG27M : Adding CPU Unique ID read support*/
 	get_board_serial(&serialnr);
+
+        imx8_iomux_setup_multiple_pads(board_cfg, ARRAY_SIZE(board_cfg));
+
+        for (i=0;i<ARRAY_SIZE(board_config_pads);i++) {
+                if(i<=3) {
+                        gpio_request(board_config_pads[i], "SOM-Revision-GPIO");
+                        gpio_direction_input(board_config_pads[i]);
+                        bom_rev |= (gpio_get_value(board_config_pads[i]) << i);
+                } else {
+                        gpio_request(board_config_pads[i], "SOM-Revision-GPIO");
+                        gpio_direction_input(board_config_pads[i]);
+                        pcb_rev |= (gpio_get_value(board_config_pads[i]) << (i-4));
+                }
+        }
 
 	printf ("\n");
 	printf ("Board Info:\n");

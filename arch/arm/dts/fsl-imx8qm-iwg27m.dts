@@ -219,7 +219,6 @@
 
 		pinctrl_unused_gpio: unused_gpiogrp{ /* GPIO: Unused GPIO IOMUX Pin Configuration */
 			fsl,pins = <
-                                SC_P_LVDS0_GPIO01_LVDS0_GPIO0_IO01                      0x00000021
 				SC_P_M41_GPIO0_00_LSIO_GPIO0_IO12			0x00000021
 				SC_P_M41_GPIO0_01_LSIO_GPIO0_IO13			0x00000021	
 				SC_P_LVDS0_GPIO00_LSIO_GPIO1_IO04			0x00000021
@@ -258,7 +257,6 @@
                                 SC_P_QSPI1A_SS0_B_LSIO_GPIO4_IO19                       0x00000021
                                 SC_P_QSPI1A_SS1_B_LSIO_GPIO4_IO20                       0x00000021
 				SC_P_QSPI1A_SCLK_LSIO_GPIO4_IO21			0x00000021
-				SC_P_QSPI1A_DQS_LSIO_GPIO4_IO22				0x00000021
                                 SC_P_QSPI1A_DATA3_LSIO_GPIO4_IO23                       0x00000021  
                                 SC_P_QSPI1A_DATA2_LSIO_GPIO4_IO24                       0x00000021
                                 SC_P_QSPI1A_DATA1_LSIO_GPIO4_IO25                       0x00000021
@@ -456,8 +454,7 @@
 };
 
 &unused_gpios { /* GPIO: iWave Unused GPIO pins */
-	gpios = <&gpio0 1 0>,
-		<&gpio0 12 0>,
+	gpios = <&gpio0 12 0>,
 		<&gpio0 13 0>,
 		<&gpio1 4 0>,
 		<&gpio1 6 0>,
