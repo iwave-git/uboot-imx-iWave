@@ -18,6 +18,13 @@
 #include <malloc.h>
 #include <u-boot/crc.h>
 
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M
+/* IWG40M: Support auto boot environment selection */
+#include <asm/mach-imx/boot_mode.h>
+/* IWG40M: Storing boot device number globally */
+enum boot_device get_boot_device(void);
+#endif
+
 DECLARE_GLOBAL_DATA_PTR;
 
 /************************************************************************
@@ -63,11 +70,40 @@ char *env_get_default(const char *name)
 
 void env_set_default(const char *s, int flags)
 {
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M 
+	/* IWG40M: Support auto boot environment selection */
+	switch (get_boot_device()) {
+		case MMC1_BOOT:
+			if (sizeof(default_environment_emmc) > ENV_SIZE) {
+				puts("*** Error - default environment is too large\n\n");
+				return;
+			}
+			break;
+		case SD1_BOOT :
+			if (sizeof(default_environment_ssd) > ENV_SIZE) {
+				puts("*** Error - default environment is too large\n\n");
+				return;
+			}
+			break;
+		case SD2_BOOT :
+			if (sizeof(default_environment_msd) > ENV_SIZE) {
+				puts("*** Error - default environment is too large\n\n");
+				return;
+			}
+			break;
+		default:
+			if (sizeof(default_environment) > ENV_SIZE) {
+				puts("*** Error - default environment is too large\n\n");
+				return;
+			}
+			break;
+	}
+#else
 	if (sizeof(default_environment) > ENV_SIZE) {
 		puts("*** Error - default environment is too large\n\n");
 		return;
 	}
-
+#endif
 	if (s) {
 		if ((flags & H_INTERACTIVE) == 0) {
 			printf("*** Warning - %s, "
@@ -79,6 +115,47 @@ void env_set_default(const char *s, int flags)
 		debug("Using default environment\n");
 	}
 
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M
+	/* IWG40M: Support auto boot environment selection */
+	switch (get_boot_device()) {
+		case MMC1_BOOT:
+			if (himport_r(&env_htab, (char *)default_environment_emmc,
+						sizeof(default_environment_emmc), '\0', flags, 0,
+						0, NULL) == 0)
+				pr_err("Environment import failed: errno = %d\n", errno);
+
+			gd->flags |= GD_FLG_ENV_READY;
+			gd->flags |= GD_FLG_ENV_DEFAULT;
+			break;
+		case SD1_BOOT :
+			if (himport_r(&env_htab, (char *)default_environment_ssd,
+						sizeof(default_environment_ssd), '\0', flags, 0,
+						0, NULL) == 0)
+				pr_err("Environment import failed: errno = %d\n", errno);
+
+			gd->flags |= GD_FLG_ENV_READY;
+			gd->flags |= GD_FLG_ENV_DEFAULT;
+			break;
+		case SD2_BOOT :
+			if (himport_r(&env_htab, (char *)default_environment_msd,
+						sizeof(default_environment_msd), '\0', flags, 0,
+						0, NULL) == 0)
+				pr_err("Environment import failed: errno = %d\n", errno);
+
+			gd->flags |= GD_FLG_ENV_READY;
+			gd->flags |= GD_FLG_ENV_DEFAULT;
+			break;
+		default:
+			if (himport_r(&env_htab, (char *)default_environment,
+						sizeof(default_environment), '\0', flags, 0,
+						0, NULL) == 0)
+				pr_err("Environment import failed: errno = %d\n", errno);
+
+			gd->flags |= GD_FLG_ENV_READY;
+			gd->flags |= GD_FLG_ENV_DEFAULT;
+			break;
+	}
+#else
 	if (himport_r(&env_htab, (char *)default_environment,
 			sizeof(default_environment), '\0', flags, 0,
 			0, NULL) == 0)
@@ -87,6 +164,7 @@ void env_set_default(const char *s, int flags)
 
 	gd->flags |= GD_FLG_ENV_READY;
 	gd->flags |= GD_FLG_ENV_DEFAULT;
+#endif
 }
 
 
@@ -98,9 +176,35 @@ int env_set_default_vars(int nvars, char * const vars[], int flags)
 	 * (and use \0 as a separator)
 	 */
 	flags |= H_NOCLEAR;
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M
+	/* IWG40M: Support auto boot environment selection */
+	switch (get_boot_device()) {
+		case MMC1_BOOT:
+			return himport_r(&env_htab, (const char *)default_environment_emmc,
+					sizeof(default_environment_emmc), '\0',
+					flags, 0, nvars, vars);
+			break;
+		case SD1_BOOT :
+			return himport_r(&env_htab, (const char *)default_environment_ssd,
+					sizeof(default_environment_ssd), '\0',
+					flags, 0, nvars, vars);
+			break;
+		case SD2_BOOT :
+			return himport_r(&env_htab, (const char *)default_environment_msd,
+					sizeof(default_environment_msd), '\0',
+					flags, 0, nvars, vars);
+			break;
+		default:
+			return himport_r(&env_htab, (const char *)default_environment,
+					sizeof(default_environment), '\0',
+					flags, 0, nvars, vars);
+			break;
+	}
+#else
 	return himport_r(&env_htab, (const char *)default_environment,
 				sizeof(default_environment), '\0',
 				flags, 0, nvars, vars);
+#endif
 }
 
 /*

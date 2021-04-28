@@ -476,5 +476,10 @@ int spl_mmc_load_image(struct spl_image_info *spl_image,
 }
 
 SPL_LOAD_IMAGE_METHOD("MMC1", 0, BOOT_DEVICE_MMC1, spl_mmc_load_image);
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M
+/* IWG40M: MMC: Changing MMC Boot Device Number */
+SPL_LOAD_IMAGE_METHOD("MMC0", 0, BOOT_DEVICE_MMC2, spl_mmc_load_image);
+#else
 SPL_LOAD_IMAGE_METHOD("MMC2", 0, BOOT_DEVICE_MMC2, spl_mmc_load_image);
+#endif
 SPL_LOAD_IMAGE_METHOD("MMC2_2", 0, BOOT_DEVICE_MMC2_2, spl_mmc_load_image);

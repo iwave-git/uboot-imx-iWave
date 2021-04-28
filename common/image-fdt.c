@@ -27,6 +27,11 @@
 /* adding a ramdisk needs 0x44 bytes in version 2008.10 */
 #define FDT_RAMDISK_OVERHEAD	0x80
 
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M
+/* IWG40M: Function declaration for Kernel DTS update */
+void iwg40m_fdt_update(void *fdt);
+#endif
+
 DECLARE_GLOBAL_DATA_PTR;
 
 static void fdt_error(const char *msg)
@@ -232,6 +237,11 @@ int boot_relocate_fdt(struct lmb *lmb, char **of_flat_tree, ulong *of_size)
 
 	*of_flat_tree = of_start;
 	*of_size = of_len;
+
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M
+	/* IWG40M: Function call for Kernel DTS update */
+	iwg40m_fdt_update(*of_flat_tree);
+#endif
 
 	if (CONFIG_IS_ENABLED(CMD_FDT))
 		set_working_fdt_addr(map_to_sysmem(*of_flat_tree));

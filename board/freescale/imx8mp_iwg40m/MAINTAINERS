@@ -1,0 +1,7 @@
+i.MX8MP IWG40M BOARD
+M:	iWave System Technologies Pvt Ltd. <support.ip@iwavesystems.com>
+S:	Maintained
+F:	board/freescale/imx8mp_iwg40m/
+F:	include/configs/imx8mp_iwg40m.h
+F:	configs/imx8mp_iwg40m_defconfig
+F:	arch/arm/dts/imx8mp-iwg40m.dts
