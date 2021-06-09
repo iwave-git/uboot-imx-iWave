@@ -783,6 +783,7 @@ dtb-$(CONFIG_ARCH_IMX8) += \
 
 dtb-$(CONFIG_ARCH_IMX8M) += \
 	imx8mm-evk.dtb \
+	imx8mm-iwg34s.dtb \
 	imx8mm-evk-qca-wifi.dtb \
 	imx8mm-ddr4-evk.dtb \
 	imx8mm-ddr3l-val.dtb \
@@ -791,6 +792,7 @@ dtb-$(CONFIG_ARCH_IMX8M) += \
 	imx8mn-ddr3l-evk.dtb \
 	imx8mn-ddr4-evk.dtb \
 	imx8mn-evk.dtb \
+	imx8mn-iwg37s.dtb \
 	imx8mq-ddr3l-val.dtb \
 	imx8mq-ddr4-val.dtb \
 	imx8mq-evk.dtb \

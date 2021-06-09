@@ -1,0 +1,18 @@
+if TARGET_IMX8MN_IWG37S
+
+config SYS_BOARD
+	default "imx8mn_iwg37s"
+
+config SYS_VENDOR
+	default "freescale"
+
+config SYS_CONFIG_NAME
+	default "imx8mn_iwg37s"
+
+config IMX8MN_LOW_DRIVE_MODE
+	bool "Enable the low drive mode of iMX8MN on IWG37S board"
+	default n
+
+source "board/freescale/common/Kconfig"
+
+endif

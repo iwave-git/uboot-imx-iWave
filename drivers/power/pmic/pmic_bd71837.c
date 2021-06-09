@@ -22,12 +22,23 @@ int power_bd71837_init (unsigned char bus) {
 
 	p->name = bd71837_name;
 	p->interface = PMIC_I2C;
+#if defined (CONFIG_TARGET_IMX8MM_IWG34S) || (CONFIG_TARGET_IMX8MN_IWG37S)
+	/* IWG34M/IWG37M: PMIC: Assigning number of registers */
+        p->number_of_regs = BD718XX_MAX_REGISTER - 1;
+#else
 	p->number_of_regs = BD71837_REG_NUM;
+#endif
 	p->hw.i2c.addr = 0x4b;
 	p->hw.i2c.tx_num = 1;
 	p->bus = bus;
-
+#if defined CONFIG_TARGET_IMX8MM_IWG34S
+	/* IWG34M/IWG37M: PMIC: changing pmic device number*/
+	printf("power_bd71847_init\n");
+#elif defined CONFIG_TARGET_IMX8MN_IWG37S
+	printf("power_bd71850_init\n");
+#else
 	printf("power_bd71837_init\n");
+#endif
 
 	return 0;
 }
