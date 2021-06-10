@@ -155,7 +155,6 @@ int board_mmc_getcd(struct mmc *mmc)
 		ret = 1;
 		break;
 	case USDHC2_BASE_ADDR:
-			imx_iomux_v3_setup_pad(usdhc2_cd_pad);
 			gpio_request(USDHC2_CD_GPIO, "usdhc2 cd");
 			gpio_direction_output(USDHC2_CD_GPIO,0);
 			udelay(500);
