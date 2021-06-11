@@ -267,7 +267,7 @@
 };
 
 &usbotg1 { /* USB1: USB OTG */
-	dr_mode = "otg";
+	dr_mode = "host";
 	status = "okay";
 };
 
