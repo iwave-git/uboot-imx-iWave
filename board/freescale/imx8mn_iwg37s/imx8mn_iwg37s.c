@@ -215,6 +215,12 @@ static void printboard_info(void)
      printf ("\n");
 }
 
+void iwg37s_fdt_update(void *fdt)
+{
+        if (!strcmp("lvds", env_get("disp"))){
+	fdt_delprop(fdt, fdt_path_offset(fdt, "/soc@0/bus@30800000/i2c@30a30000/lt8912@48"), "ddc-i2c-bus");
+	}
+}
 
 int board_late_init(void)
 {
