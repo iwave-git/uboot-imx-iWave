@@ -33,14 +33,6 @@
 		stdout-path = &uart4;
 	};
 
-#if 0
-        unused_gpios: unused_gpios { /* GPIO: Setting Unused GPIOs as input pins */
-               compatible = "iwave,unused-gpios";
-               pinctrl-names = "default";
-               pinctrl-0 = <&pinctrl_unused_gpio>;
-               status = "disabled";
-      };
-#endif
 #ifdef CONFIG_SDRAM_SIZE_1GB /* RAM:1GB Memory support */
         memory@40000000 {
 		device_type = "memory";
@@ -67,6 +59,13 @@
 		regulator-min-microvolt = <3300000>;
 		regulator-max-microvolt = <3300000>;
 	};
+
+        unused_gpios: unused_gpios { /* GPIO: Setting Unused GPIOs as input pins */
+               compatible = "iwave,unused-gpios";
+               pinctrl-names = "default";
+               pinctrl-0 = <&pinctrl_unused_gpio>;
+               status = "okay";
+       };
 };
 
 &i2c1 { /* I2C: I2C1 Bus */
@@ -281,11 +280,32 @@
        status = "okay";
 };
 
-#if 0
 &unused_gpios { /* GPIO: iWave Unused GPIO pins */ 
-	gpios =	<&gpio3 1 0>;
+	gpios =	<&gpio1 3 0>,
+		<&gpio1 7 0>,
+		<&gpio1 8 0>,
+		<&gpio1 13 0>,
+		<&gpio2 7 0>,
+		<&gpio2 8 0>,
+		<&gpio2 11 0>,
+		<&gpio3 7 0>,
+		<&gpio4 0 0>,
+		<&gpio4 1 0>,
+		<&gpio4 2 0>,
+		<&gpio4 10 0>,
+		<&gpio4 11 0>,
+		<&gpio4 12 0>,
+		<&gpio4 21 0>,
+		<&gpio4 22 0>,
+		<&gpio4 27 0>,
+		<&gpio5 1 0>,
+		<&gpio5 3 0>,
+		<&gpio5 4 0>,
+		<&gpio5 20 0>,
+		<&gpio5 24 0>,
+		<&gpio5 25 0>;
 };
-#endif
+
 &iomuxc {
 	pinctrl-names = "default";
 
@@ -375,8 +395,6 @@
 				MX8MM_IOMUXC_SD1_DATA1_USDHC1_DATA1     0x1d0
 				MX8MM_IOMUXC_SD1_DATA2_USDHC1_DATA2     0x1d0
 				MX8MM_IOMUXC_SD1_DATA3_USDHC1_DATA3     0x1d0
-				MX8MM_IOMUXC_SD1_STROBE_GPIO2_IO11      0x1d0	
-				MX8MM_IOMUXC_GPIO1_IO03_GPIO1_IO3		0x016
 			>;
 		};
 
@@ -388,8 +406,6 @@
 				MX8MM_IOMUXC_SD1_DATA1_USDHC1_DATA1     0x1d4
 				MX8MM_IOMUXC_SD1_DATA2_USDHC1_DATA2     0x1d4
 				MX8MM_IOMUXC_SD1_DATA3_USDHC1_DATA3     0x1d4
-				MX8MM_IOMUXC_SD1_STROBE_GPIO2_IO11      0x1d0   
-				MX8MM_IOMUXC_GPIO1_IO03_GPIO1_IO3       0x016
 			>;
 		};
 
@@ -401,8 +417,6 @@
 				MX8MM_IOMUXC_SD1_DATA1_USDHC1_DATA1     0x1d6
 				MX8MM_IOMUXC_SD1_DATA2_USDHC1_DATA2     0x1d6
 				MX8MM_IOMUXC_SD1_DATA3_USDHC1_DATA3     0x1d6
-				MX8MM_IOMUXC_SD1_STROBE_GPIO2_IO11      0x1d6   
-				MX8MM_IOMUXC_GPIO1_IO03_GPIO1_IO3       0x016
 			>;
 		};
 
@@ -503,21 +517,42 @@
 			fsl,pins= <
 				MX8MM_IOMUXC_SD2_WP_GPIO2_IO20			0x1d5
 				MX8MM_IOMUXC_SD2_RESET_B_GPIO2_IO19             0x1d5
+				MX8MM_IOMUXC_NAND_CE0_B_GPIO3_IO1		0x1d5
 				MX8MM_IOMUXC_GPIO1_IO00_GPIO1_IO0		0x1d5
-				MX8MM_IOMUXC_SAI3_TXD_GPIO5_IO1			0x1d5
-				MX8MM_IOMUXC_SAI2_TXC_GPIO4_IO25		0x1d5
+				MX8MM_IOMUXC_GPIO1_IO10_GPIO1_IO10		0x1d5
+				MX8MM_IOMUXC_GPIO1_IO11_GPIO1_IO11		0x1d5
 				MX8MM_IOMUXC_GPIO1_IO09_GPIO1_IO9		0x1d5
-				MX8MM_IOMUXC_SAI2_TXD0_GPIO4_IO26		0x1d5
 			>;
 		};
-#if 0
-		pinctrl_unused_gpio: unused_gpiogrp{
+
+		pinctrl_unused_gpio: unused_gpiogrp {
 			fsl,pins = <
 				/* GPIO: Unused GPIO IOMUX Pin Configuration */
-				MX8MM_IOMUXC_NAND_CE0_B_GPIO3_IO1		0x41	
+				MX8MM_IOMUXC_GPIO1_IO03_GPIO1_IO3		0x41
+                                MX8MM_IOMUXC_GPIO1_IO07_GPIO1_IO7               0x41
+                                MX8MM_IOMUXC_GPIO1_IO08_GPIO1_IO8               0x41    
+                                MX8MM_IOMUXC_GPIO1_IO13_GPIO1_IO13              0x41
+                                MX8MM_IOMUXC_SD1_DATA5_GPIO2_IO7                0x41
+                                MX8MM_IOMUXC_SD1_DATA6_GPIO2_IO8                0x41
+                                MX8MM_IOMUXC_SD1_STROBE_GPIO2_IO11              0x41
+				MX8MM_IOMUXC_NAND_DATA01_GPIO3_IO7		0x41
+				MX8MM_IOMUXC_SAI1_RXFS_GPIO4_IO0		0x41	
+				MX8MM_IOMUXC_SAI1_RXC_GPIO4_IO1			0x41
+				MX8MM_IOMUXC_SAI1_RXD0_GPIO4_IO2		0x41
+				MX8MM_IOMUXC_SAI1_TXFS_GPIO4_IO10		0x41
+				MX8MM_IOMUXC_SAI1_TXC_GPIO4_IO11		0x41
+				MX8MM_IOMUXC_SAI1_TXD0_GPIO4_IO12		0x41
+				MX8MM_IOMUXC_SAI2_RXFS_GPIO4_IO21		0x41
+				MX8MM_IOMUXC_SAI2_RXC_GPIO4_IO22		0x41	
+				MX8MM_IOMUXC_SAI2_MCLK_GPIO4_IO27		0x41
+				MX8MM_IOMUXC_SAI3_TXD_GPIO5_IO1			0x41
+				MX8MM_IOMUXC_SPDIF_TX_GPIO5_IO3			0x41
+				MX8MM_IOMUXC_SPDIF_RX_GPIO5_IO4			0x41
+				MX8MM_IOMUXC_I2C4_SCL_GPIO5_IO20		0x41
+				MX8MM_IOMUXC_UART2_RXD_GPIO5_IO24		0x41
+				MX8MM_IOMUXC_UART2_TXD_GPIO5_IO25		0x41
 			>;
 		};
-#endif
 
 		pinctrl_wdog: wdoggrp {
                        fsl,pins = <

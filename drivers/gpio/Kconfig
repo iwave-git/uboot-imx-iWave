@@ -425,10 +425,10 @@ config MPC8XXX_GPIO
 
 config IMX8M_UNUSED_GPIO
        bool "iWave unused GPIO"
-       depends on DM_GPIO && (TARGET_IMX8MM_IWG34M || TARGET_IMX8MN_IWG37M)
+       depends on DM_GPIO && (TARGET_IMX8MM_IWG34S || TARGET_IMX8MN_IWG37S)
        default n
        help
-         Say yes here to set the unused GPIOs as input in iWG34M and iWG37M platform.
+         Say yes here to set the unused GPIOs as input in iWG34S and iWG37S platform.
 
 config MPC83XX_SPISEL_BOOT
 	bool "Freescale MPC83XX SPISEL_BOOT driver"
