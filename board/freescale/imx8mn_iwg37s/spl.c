@@ -187,9 +187,6 @@ int power_init_board(void)
 	/* unlock the PMIC regs */
 	pmic_reg_write(p, BD71837_REGLOCK, 0x1);
 
-	/* Set VDD_ARM to typical value 0.85v for 1.2Ghz */
-	pmic_reg_write(p, BD71837_BUCK2_VOLT_RUN, 0xf);
-
 #ifdef CONFIG_IMX8MN_LOW_DRIVE_MODE
 	/* Set VDD_SOC/VDD_DRAM to typical value 0.8v for low drive mode */
 	pmic_reg_write(p, BD71837_BUCK1_VOLT_RUN, 0xa);

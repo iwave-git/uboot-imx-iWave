@@ -184,7 +184,6 @@ int power_init_board(void)
 	p = pmic_get("BD71837");
 	pmic_probe(p);
 
-
 	/* decrease RESET key long push time from the default 10s to 10ms */
 	pmic_reg_write(p, BD71837_PWRONCONFIG1, 0x0);
 
@@ -193,9 +192,6 @@ int power_init_board(void)
 
 	/* increase VDD_SOC to typical value 0.85v before first DRAM access */
 	pmic_reg_write(p, BD71837_BUCK1_VOLT_RUN, 0x0f);
-
-	/* Decrease VDD_ARM to 0.85V for 1.2 GHz*/
-	pmic_reg_write(p, BD71837_BUCK2_VOLT_RUN, 0x0f);
 
 	/* increase VDD_DRAM to 0.975v for 3Ghz DDR */
 	pmic_reg_write(p, BD71837_BUCK5_VOLT, 0x83);
