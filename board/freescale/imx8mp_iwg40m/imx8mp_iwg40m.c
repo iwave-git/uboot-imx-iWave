@@ -419,7 +419,7 @@ static void print_board_info(void)
         printf ("Board Info:\n");
         printf ("\tBSP Version     : %s\n", BSP_VERSION);
         printf ("\tSOM Version     : iW-PRGQZ-AP-01-R%x.%x\n",pcb_rev+1,bom_rev);
-        printf ("\tCPU Unique ID   : 0x%08X%08X\n",serialnr.high,serialnr.low);
+        printf ("\tCPU Unique ID   : 0X%08X%08X\n",serialnr.high,serialnr.low);
         printf ("\n");
 }
 

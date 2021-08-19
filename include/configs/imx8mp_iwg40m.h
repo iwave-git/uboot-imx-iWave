@@ -11,7 +11,7 @@
 
 #include "imx_env.h"
 
-#define BSP_VERSION                     "iW-PRGQZ-SC-01-R1.0-REL0.2-Linux5.4.70"
+#define BSP_VERSION                     "iW-PRGQZ-SC-01-R2.0-REL0.1-Linux5.4.70"
 
 #define CONFIG_SPL_MAX_SIZE		(152 * 1024)
 #define CONFIG_SYS_MONITOR_LEN		(512 * 1024)
@@ -187,7 +187,7 @@
 #define PHYS_SDRAM_SIZE			0x80000000	/* 2 GB */
 #define PHYS_SDRAM_2			0x000000000
 #elif defined(CONFIG_SDRAM_SIZE_4GB)
-#define PHYS_SDRAM_SIZE			0xC0000000	/* 2 GB */
+#define PHYS_SDRAM_SIZE			0xC0000000	/* 3 GB */
 #define PHYS_SDRAM_2			0x100000000
 #define PHYS_SDRAM_2_SIZE		0x40000000	 /*1 GB */
 #endif
