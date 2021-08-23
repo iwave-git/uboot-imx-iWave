@@ -415,14 +415,18 @@ static void print_board_info(void)
                 }
         }
 
-        printf ("\n");
         printf ("Board Info:\n");
         printf ("\tBSP Version     : %s\n", BSP_VERSION);
         printf ("\tSOM Version     : iW-PRGQZ-AP-01-R%x.%x\n",pcb_rev+1,bom_rev);
-        printf ("\tCPU Unique ID   : 0X%08X%08X\n",serialnr.high,serialnr.low);
+        printf ("\tCPU Unique ID   : 0x%08X%08X\n",serialnr.high,serialnr.low);
         printf ("\n");
 }
 
+int checkboard(void)
+{
+       puts("Board: i.MX8MPlus SMARC SOM\n");
+       return 0;
+}
 
 int board_mmc_get_env_dev(int devno)
 {
@@ -474,8 +478,8 @@ int board_late_init(void)
 	board_late_mmc_env_init();
 #endif
 #ifdef CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
-        env_set("board_name", "iW-RainboW-G40M-i.MX8M Plus SMARC");
-        env_set("board_rev", "iW-PRGQZ-AP-01-R1.X");
+        env_set("board_name", "iW-RainboW-G40M-i.MX8MP SMARC");
+        env_set("board_rev", "iW-PRGQZ-AP-01-R2.X");
 #endif
 
 	return 0;
