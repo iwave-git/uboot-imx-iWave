@@ -28,6 +28,12 @@
                 device_type = "memory";
                 reg = <0x0 0x40000000 0 0x80000000>;
         };
+#elif CONFIG_SDRAM_SIZE_8GB
+        memory@40000000 {
+                device_type = "memory";
+                reg = <0x0 0x40000000 0 0xc0000000>,
+                      <0x1 0x00000000 1 0x40000000>;
+        };
 #endif
         aliases { /* SD/MMC: eMMC/SD slot numbering fix */
                 ethernet0 = &eqos;

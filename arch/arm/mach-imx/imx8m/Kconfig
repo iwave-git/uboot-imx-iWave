@@ -132,6 +132,10 @@ config SDRAM_SIZE_4GB
        bool "Support 4GB LPDDR4 IWG40M Platform"
        depends on TARGET_IMX8MP_IWG40M 
 
+config SDRAM_SIZE_8GB
+       bool "Support 8GB LPDDR4 IWG40M Platform"
+       depends on TARGET_IMX8MP_IWG40M
+
 config TARGET_IMX8MP_IWG40M_UUU
         bool "imx8mp LPDDR4 IWG40M board uuu"
         depends on TARGET_IMX8MP_IWG40M
