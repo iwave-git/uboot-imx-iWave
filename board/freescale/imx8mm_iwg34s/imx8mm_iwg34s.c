@@ -157,13 +157,13 @@ int mmc_map_to_kernel_blk(int devno)
 
 #define GPIO_PAD_CFG_CTRL PAD_CTL_DSE0
 
-#define BCONFIG_0 IMX_GPIO_NR(2, 20)
-#define BCONFIG_1 IMX_GPIO_NR(2, 19)
-#define BCONFIG_2 IMX_GPIO_NR(3, 1)
+#define BCONFIG_0 IMX_GPIO_NR(1, 9)
+#define BCONFIG_1 IMX_GPIO_NR(1, 11)
+#define BCONFIG_2 IMX_GPIO_NR(1, 10)
 #define BCONFIG_3 IMX_GPIO_NR(1, 0)
-#define BCONFIG_4 IMX_GPIO_NR(1, 10)
-#define BCONFIG_5 IMX_GPIO_NR(1, 11)
-#define BCONFIG_6 IMX_GPIO_NR(1, 9)
+#define BCONFIG_4 IMX_GPIO_NR(3, 1)
+#define BCONFIG_5 IMX_GPIO_NR(2, 19)
+#define BCONFIG_6 IMX_GPIO_NR(2, 20)
 
 int const board_config_pads[] = {
        BCONFIG_0,
