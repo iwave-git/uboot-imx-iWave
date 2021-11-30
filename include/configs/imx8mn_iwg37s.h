@@ -11,7 +11,7 @@
 
 #include "imx_env.h"
 
-#define BSP_VERSION                     "iW-PRGII-SC-01-R1.0-REL0.1-Linux5.4.70"
+#define BSP_VERSION                     "iW-PRGII-SC-01-R1.0-REL0.2-Linux5.4.70"
 
 #define CONFIG_SPL_MAX_SIZE		(208 * 1024)
 #define CONFIG_SYS_MONITOR_LEN		(512 * 1024)
