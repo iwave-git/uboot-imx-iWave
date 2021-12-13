@@ -13,6 +13,10 @@ obj-$(CONFIG_IMX8M_LPDDR4) += lpddr4_timing.o
 else
 ifdef CONFIG_SDRAM_SIZE_2GB
 obj-$(CONFIG_IMX8M_LPDDR4) += lpddr4_timing_2gb.o
+else
+ifdef CONFIG_SDRAM_SIZE_8GB
+obj-$(CONFIG_IMX8M_LPDDR4) += lpddr4_timing_8gb.o
+endif
 endif
 endif
 endif

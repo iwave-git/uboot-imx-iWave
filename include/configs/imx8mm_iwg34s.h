@@ -10,7 +10,7 @@
 #include <asm/arch/imx-regs.h>
 #include "imx_env.h"
 
-#define BSP_VERSION                     "iW-PRGII-SC-01-R1.0-REL0.2-Linux5.4.70"
+#define BSP_VERSION                     "iW-PRGII-SC-01-R1.0-REL0.3-Linux5.4.70"
 
 #define CONFIG_SPL_MAX_SIZE		(148 * 1024)
 #define CONFIG_SYS_MONITOR_LEN		SZ_512K
@@ -202,10 +202,14 @@
 
 #define CONFIG_SYS_SDRAM_BASE           0x40000000
 #define PHYS_SDRAM                      0x40000000
+#define PHYS_SDRAM_2                    0x100000000
 #if defined(CONFIG_SDRAM_SIZE_1GB)
 #define PHYS_SDRAM_SIZE			0x40000000 /* Support for 1GB LPDDR4 Memory */
 #elif defined(CONFIG_SDRAM_SIZE_2GB)
 #define PHYS_SDRAM_SIZE                 0x80000000 /* Support for 2GB LPDDR4 Memory */
+#elif defined(CONFIG_SDRAM_SIZE_8GB)
+#define PHYS_SDRAM_SIZE                 0xC0000000 /* Support for 3GB LPDDR4 Memory */
+#define PHYS_SDRAM_2_SIZE               0x140000000 /* Support for 5GB LPDDR4 Memory */
 #endif
 
 #define CONFIG_SYS_MEMTEST_START	PHYS_SDRAM

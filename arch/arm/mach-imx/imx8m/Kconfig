@@ -184,6 +184,10 @@ config SDRAM_SIZE_2GB
        bool "Support 2GB LPDDR4 IWG34S Platform"
        depends on TARGET_IMX8MM_IWG34S 
 
+config SDRAM_SIZE_8GB
+       bool "Support 8GB LPDDR4 IWG34S Platform"
+       depends on TARGET_IMX8MM_IWG34S 
+
 source "board/freescale/imx8mq_evk/Kconfig"
 source "board/freescale/imx8mq_val/Kconfig"
 source "board/freescale/imx8mm_ab2/Kconfig"
