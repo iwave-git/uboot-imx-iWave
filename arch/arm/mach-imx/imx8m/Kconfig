@@ -118,6 +118,24 @@ config TARGET_IMX8MP_EVK
 	select SUPPORT_SPL
 	select IMX8M_LPDDR4
 
+config TARGET_IMX8MP_IWG40M
+        bool "imx8mp LPDDR4 iWave board"
+        select IMX8MP
+        select SUPPORT_SPL
+        select IMX8M_LPDDR4
+
+config SDRAM_SIZE_2GB
+       bool "Support 2GB LPDDR4 IWG40M Platform"
+       depends on TARGET_IMX8MP_IWG40M
+
+config SDRAM_SIZE_4GB
+       bool "Support 4GB LPDDR4 IWG40M Platform"
+       depends on TARGET_IMX8MP_IWG40M 
+
+config TARGET_IMX8MP_IWG40M_UUU
+        bool "imx8mp LPDDR4 IWG40M board uuu"
+        depends on TARGET_IMX8MP_IWG40M
+
 config TARGET_IMX8MP_DDR4_EVK
 	bool "imx8mp DDR4 EVK board"
 	select IMX8MP
@@ -163,6 +181,7 @@ source "board/freescale/imx8mm_evk/Kconfig"
 source "board/freescale/imx8mm_val/Kconfig"
 source "board/freescale/imx8mn_evk/Kconfig"
 source "board/freescale/imx8mp_evk/Kconfig"
+source "board/freescale/imx8mp_iwg40m/Kconfig"
 source "board/toradex/verdin-imx8mm/Kconfig"
 
 endif

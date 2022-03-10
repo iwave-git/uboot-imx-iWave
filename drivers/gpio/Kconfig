@@ -438,4 +438,10 @@ config MT7621_GPIO
 	help
 	  Say yes here to support MediaTek MT7621 compatible GPIOs.
 
+config IMX8_UNUSED_GPIO
+        bool "iWave unused GPIO"
+        depends on DM_GPIO && TARGET_IMX8MP_IWG40M
+        default n
+        help
+          Say yes here to set the unused GPIOs as input in iWG40S platform.
 endmenu

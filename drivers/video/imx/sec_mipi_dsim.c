@@ -871,12 +871,15 @@ static int sec_mipi_dsim_host_attach(struct mipi_dsi_host *host,
 		return -EINVAL;
 	}
 
+/* IWG40M: MIPI DSI: Support added for Non-Burst Mode With Sync Event video mode*/
+#ifndef CONFIG_TARGET_IMX8MP_IWG40M
 	if (!(device->mode_flags & MIPI_DSI_MODE_VIDEO)		||
 	    !((device->mode_flags & MIPI_DSI_MODE_VIDEO_BURST)	||
 	      (device->mode_flags & MIPI_DSI_MODE_VIDEO_SYNC_PULSE))) {
 		printf("unsupported dsi mode\n");
 		return -EINVAL;
 	}
+#endif
 
 	if (device->format != MIPI_DSI_FMT_RGB888 &&
 	    device->format != MIPI_DSI_FMT_RGB565 &&

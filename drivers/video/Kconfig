@@ -355,6 +355,24 @@ config VIDEO_LCD_RAYDIUM_RM67191
 	Say Y here if you want to enable support for Raydium RM68200
 	1080x1920 DSI video mode panel.
 
+config VIDEO_RASPBERRYPI_MIPI
+	bool "Raspberry Pi 7-inch display for IWG40M"
+	depends on DM_VIDEO
+        select VIDEO_MIPI_DSI
+        default n
+        help
+        Say Y here if you want to enable support for Raspberry Pi 7-inch display
+	video mode panel.
+
+config VIDEO_LCD_RAYDIUM_RM67198
+	bool "RM67198 DSI LCD panel support"
+	depends on DM_VIDEO
+	select VIDEO_MIPI_DSI
+	default n
+	help
+	Say Y here if you want to enable support for Raydium RM67198
+	1080x1920 DSI video mode panel.
+
 config VIDEO_LCD_SSD2828
 	bool "SSD2828 bridge chip"
 	default n

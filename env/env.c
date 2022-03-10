@@ -7,6 +7,12 @@
 #include <common.h>
 #include <env.h>
 #include <env_internal.h>
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M 
+/* IWG40M: Support auto boot environment selection */
+#include <asm/mach-imx/boot_mode.h>
+/* IWG40M: Storing boot device number globally */
+enum boot_device get_boot_device(void);
+#endif
 
 DECLARE_GLOBAL_DATA_PTR;
 
@@ -172,7 +178,26 @@ __weak int env_get_char_spec(int index)
 int env_get_char(int index)
 {
 	if (gd->env_valid == ENV_INVALID)
+
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M
+        /* IWG40M: Support auto boot environment selection */
+        switch (get_boot_device()) {
+                case MMC1_BOOT:
+                         return default_environment_emmc[index];
+                         break;
+                case SD1_BOOT :
+                         return default_environment_ssd[index];
+                         break;
+                case SD2_BOOT :
+                         return default_environment_msd[index];
+                         break;
+                default:
+                         return default_environment[index];
+                         break;
+               }
+#else
 		return default_environment[index];
+#endif
 	else
 		return env_get_char_spec(index);
 }
@@ -303,9 +328,30 @@ int env_init(void)
 		return -ENODEV;
 
 	if (ret == -ENOENT) {
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M
+		/* IWG40M: Support auto boot environment selection */
+		switch (get_boot_device()) {
+			case MMC1_BOOT:
+				gd->env_addr = (ulong)&default_environment_emmc[0];
+				gd->env_valid = ENV_VALID;
+				break;
+			case SD1_BOOT :
+				gd->env_addr = (ulong)&default_environment_ssd[0];
+				gd->env_valid = ENV_VALID;
+				break;
+			case SD2_BOOT :
+				gd->env_addr = (ulong)&default_environment_msd[0];
+				gd->env_valid = ENV_VALID;
+				break;
+			default:
+				gd->env_addr = (ulong)&default_environment[0];
+				gd->env_valid = ENV_VALID;
+				break;
+		}
+#else
 		gd->env_addr = (ulong)&default_environment[0];
 		gd->env_valid = ENV_VALID;
-
+#endif
 		return 0;
 	}
 

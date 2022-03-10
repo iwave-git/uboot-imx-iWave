@@ -1,0 +1,14 @@
+if TARGET_IMX8MP_IWG40M
+
+config SYS_BOARD
+	default "imx8mp_iwg40m"
+
+config SYS_VENDOR
+	default "freescale"
+
+config SYS_CONFIG_NAME
+	default "imx8mp_iwg40m"
+
+source "board/freescale/common/Kconfig"
+
+endif

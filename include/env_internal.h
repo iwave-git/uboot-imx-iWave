@@ -112,6 +112,12 @@ extern env_t embedded_environment;
 #endif /* ENV_IS_EMBEDDED */
 
 extern const unsigned char default_environment[];
+#ifdef CONFIG_TARGET_IMX8MP_IWG40M
+/* IWG40M: Declare default environment for boot device */
+extern const unsigned char default_environment_emmc[];
+extern const unsigned char default_environment_ssd[];
+extern const unsigned char default_environment_msd[];
+#endif
 
 #ifndef DO_DEPS_ONLY
 
