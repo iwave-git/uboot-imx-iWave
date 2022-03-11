@@ -81,7 +81,7 @@
 	"splashpos=m,m\0" \
 	"usb3.0_top=disabled\0" \
 	"console=ttymxc3,115200\0" \
-	"fdt_file=imx8mp-iwg40m-prgjj.dtb\0" \
+	"fdt_file=" CONFIG_DEFAULT_FDT_FILE "\0" \
 	"fdt_addr=0x43000000\0"			\
 	"fdt_high=0xffffffffffffffff\0"		\
 	"boot_fit=no\0" \
