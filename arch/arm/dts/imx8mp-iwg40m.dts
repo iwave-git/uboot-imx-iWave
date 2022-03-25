@@ -60,7 +60,7 @@
 
        dsi_host: dsi-host {
               compatible = "samsung,sec-mipi-dsi";
-               status = "okay";
+               status = "disabled";
        };
 
        rm67198_panel {
@@ -75,7 +75,7 @@
                                         */
                panel-width-mm = <68>;
                panel-height-mm = <121>;
-               status = "okay";
+               status = "disabled";
 
                port {
                        rm67198_from_dsim: endpoint {
@@ -240,7 +240,7 @@
                 video-mode = <1>;
                 panel-width-mm = <154>;
                 panel-height-mm = <86>;
-                status = "okay";
+                status = "disabled";
 
                 port@1 {
                 rpi_from_dsim: endpoint {
@@ -272,7 +272,7 @@
 
 &lcdif1 {
 	display = <&display0>;
-	status = "okay";
+	status = "disabled";
 
 	display0: display@0 {
                bits-per-pixel = <24>;
@@ -281,7 +281,7 @@
 };
 
 &mipi_dsi {
-       status = "okay";
+       status = "disabled";
 	
 	port@0 {
                dsim_to_rm67198: endpoint {

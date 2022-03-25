@@ -72,6 +72,40 @@ int ft_board_setup(void *blob, bd_t *bd)
 		fdt_delprop(blob, fdt_path_offset(blob, "/usb@32f10100/dwc3@38100000"), "adp-disable");
 		fdt_delprop(blob, fdt_path_offset(blob, "/usb@32f10100/dwc3@38100000"), "usb-role-switch");
 	}
+	
+	if (!strcmp("mipi", env_get("disp"))) {
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/mipi_dsi@32e60000"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/mipi_dsi@32e60000/panel@0"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/lcd-controller@32e80000"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@30800000/i2c@30ad0000/cst148@1a"), "status", "okay");
+        }
+
+	if (!strcmp("lvds", env_get("disp"))) {
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/lvds_panel"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/lvds_backlight"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/ldb@32ec005c"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/ldb@32ec005c/lvds-channel@0"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/phy@32ec0128"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/lcd-controller@32e90000"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@30400000/pwm@30670000"), "status", "okay");
+        }
+
+	if (!strcmp("mipi_lvds_hdmi", env_get("disp"))) {
+		
+		fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/mipi_dsi@32e60000"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/mipi_dsi@32e60000/panel@0"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/lcd-controller@32e80000"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@30800000/i2c@30ad0000/cst148@1a"), "status", "okay");
+
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/lvds_panel"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/lvds_backlight"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/ldb@32ec005c"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/ldb@32ec005c/lvds-channel@0"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/phy@32ec0128"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/lcd-controller@32e90000"), "status", "okay");
+                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@30400000/pwm@30670000"), "status", "okay");
+        }
+
 
 #ifdef CONFIG_SDRAM_SIZE_2GB
         reg[0] = cpu_to_fdt32(0x0);

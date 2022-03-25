@@ -80,6 +80,7 @@
 	"splashimage=0x50000000\0" \
 	"splashpos=m,m\0" \
 	"usb3.0_top=disabled\0" \
+	"disp=hdmi\0" \
 	"console=ttymxc3,115200\0" \
 	"fdt_file=" CONFIG_DEFAULT_FDT_FILE "\0" \
 	"fdt_addr=0x43000000\0"			\
