@@ -77,7 +77,7 @@ int ft_board_setup(void *blob, bd_t *bd)
                 fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/mipi_dsi@32e60000"), "status", "okay");
                 fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/mipi_dsi@32e60000/panel@0"), "status", "okay");
                 fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@32c00000/lcd-controller@32e80000"), "status", "okay");
-                fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@30800000/i2c@30ad0000/cst148@1a"), "status", "okay");
+		fdt_setprop_string(blob, fdt_path_offset(blob, "/soc@0/bus@30800000/i2c@30a30000/cst148@1a"), "status", "okay" );
         }
 
 	if (!strcmp("lvds", env_get("disp"))) {
