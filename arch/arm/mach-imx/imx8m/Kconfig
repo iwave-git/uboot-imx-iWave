@@ -103,6 +103,44 @@ config TARGET_IMX8MM_EVK
 	select MISC
 	select SPL_CRYPTO_SUPPORT if SPL
 
+config TARGET_IMX8MM_IWG34M
+	bool "imx8mm LPDDR4 IWG34M board"
+	select IMX8MM
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select MISC
+	select SPL_CRYPTO_SUPPORT if SPL
+
+config TARGET_IMX8MM_IWG34M_UUU
+        bool "imx8mm LPDDR4 IWG34M board uuu"
+        depends on TARGET_IMX8MM_IWG34M
+
+config TARGET_IMX8MM_IWG34M_Q7
+	bool "imx8mm LPDDR4 IWG34M board"
+	select IMX8MM
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select MISC
+	select SPL_CRYPTO_SUPPORT if SPL
+
+config TARGET_IMX8MM_IWG34M_Q7_UUU
+        bool "imx8mm LPDDR4 IWG34M board uuu"
+        depends on TARGET_IMX8MM_IWG34M_Q7
+
+config TARGET_IMX8MM_IWG34S
+        bool "imx8mm LPDDR4 IWG34S board"
+        select IMX8MM
+        select SUPPORT_SPL
+        select IMX8M_LPDDR4
+        select FSL_CAAM
+        select FSL_BLOB
+        select MISC
+        select SPL_CRYPTO_SUPPORT if SPL
+
 config TARGET_IMX8MM_VENICE
 	bool "Support Gateworks Venice iMX8M Mini module"
 	select IMX8MM
@@ -134,6 +172,52 @@ config TARGET_IMX8MN_EVK
 	select FSL_BLOB
 	select MISC
 	select SPL_CRYPTO_SUPPORT if SPL
+
+config TARGET_IMX8MN_IWG37M
+	bool "imx8mn LPDDR4 IWG37M board"
+	select IMX8MN
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select MISC
+	select SPL_CRYPTO_SUPPORT if SPL
+
+config TARGET_IMX8MN_IWG37M_UUU
+        bool "imx8mn LPDDR4 IWG37M board uuu"
+        depends on TARGET_IMX8MN_IWG37M
+
+config TARGET_IMX8MN_IWG37M_Q7
+	bool "imx8mn LPDDR4 IWG37M board"
+	select IMX8MN
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select MISC
+	select SPL_CRYPTO_SUPPORT if SPL
+
+config TARGET_IMX8MN_IWG37M_Q7_UUU
+        bool "imx8mn LPDDR4 IWG37M board uuu"
+        depends on TARGET_IMX8MN_IWG37M_Q7
+
+config SDRAM_SIZE_1GB
+	bool "Support 1GB LPDDR4 IWG34M and IWG37M Platform"
+	depends on TARGET_IMX8MM_IWG34M || TARGET_IMX8MN_IWG37M || TARGET_IMX8MM_IWG34M_Q7 || TARGET_IMX8MN_IWG37M_Q7
+
+config SDRAM_SIZE_2GB
+	bool "Support 2GB LPDDR4 IWG34M and IWG37M Platform"
+	depends on TARGET_IMX8MM_IWG34M || TARGET_IMX8MN_IWG37M || TARGET_IMX8MM_IWG34M_Q7 || TARGET_IMX8MN_IWG37M_Q7
+
+config TARGET_IMX8MN_IWG37S
+        bool "imx8mn LPDDR4 IWG37S board"
+        select IMX8MN
+        select SUPPORT_SPL
+        select IMX8M_LPDDR4
+        select FSL_CAAM
+        select FSL_BLOB
+        select MISC
+        select SPL_CRYPTO_SUPPORT if SPL
 
 config TARGET_IMX8MN_DDR4_EVK
 	bool "imx8mn DDR4 EVK board"
@@ -261,12 +345,22 @@ config TARGET_PHYCORE_IMX8MP
 	select IMX8M_LPDDR4
 endchoice
 
+config SDRAM_SIZE_4GB
+       bool "Support 4GB LPDDR4 IWG34M Platform"
+       depends on TARGET_IMX8MM_IWG34M
+
 source "board/freescale/imx8mq_evk/Kconfig"
 source "board/freescale/imx8mq_val/Kconfig"
 source "board/freescale/imx8mm_ab2/Kconfig"
 source "board/freescale/imx8mm_evk/Kconfig"
+source "board/freescale/imx8mm_iwg34m/Kconfig"
+source "board/freescale/imx8mm_iwg34m_q7/Kconfig"
+source "board/freescale/imx8mm_iwg34s/Kconfig"
 source "board/freescale/imx8mm_val/Kconfig"
 source "board/freescale/imx8mn_evk/Kconfig"
+source "board/freescale/imx8mn_iwg37m/Kconfig"
+source "board/freescale/imx8mn_iwg37m_q7/Kconfig"
+source "board/freescale/imx8mn_iwg37s/Kconfig"
 source "board/freescale/imx8mp_evk/Kconfig"
 source "board/gateworks/venice/Kconfig"
 source "board/google/imx8mq_phanbell/Kconfig"

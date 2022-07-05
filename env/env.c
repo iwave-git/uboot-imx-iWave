@@ -12,6 +12,12 @@
 #include <linux/bitops.h>
 #include <linux/bug.h>
 
+#if defined (CONFIG_TARGET_IMX8MM_IWG34M) || (CONFIG_TARGET_IMX8MN_IWG37M) || (CONFIG_TARGET_IMX8MM_IWG34S) || (CONFIG_TARGET_IMX8MN_IWG37S) || (CONFIG_TARGET_IMX8MM_IWG34M_Q7) || (CONFIG_TARGET_IMX8MN_IWG37M_Q7)
+/* IWG34/IWG37: Support auto boot environment selection */
+#include <asm/mach-imx/boot_mode.h>
+enum boot_device get_boot_device(void);
+#endif
+
 DECLARE_GLOBAL_DATA_PTR;
 
 #if defined(CONFIG_NEEDS_MANUAL_RELOC)
@@ -174,7 +180,30 @@ __weak int env_get_char_spec(int index)
 int env_get_char(int index)
 {
 	if (gd->env_valid == ENV_INVALID)
+#if defined (CONFIG_TARGET_IMX8MM_IWG34M) || (CONFIG_TARGET_IMX8MN_IWG37M) || (CONFIG_TARGET_IMX8MM_IWG34S) || (CONFIG_TARGET_IMX8MN_IWG37S) || (CONFIG_TARGET_IMX8MM_IWG34M_Q7) || (CONFIG_TARGET_IMX8MN_IWG37M_Q7)
+	/* IWG34/IWG37: Support auto boot environment selection */
+	switch(get_boot_device()) {
+		
+		case MMC1_BOOT:
+			return default_environment_emmc[index];
+			break;
+
+                case SD1_BOOT:
+                        return default_environment_sd1[index];
+                        break;
+
+		case SD2_BOOT:
+                        return default_environment_sd2[index];
+                        break;
+
+		default:
+                        return default_environment[index];
+                        break;
+
+	}	
+#else
 		return default_environment[index];
+#endif
 	else
 		return env_get_char_spec(index);
 }
@@ -341,9 +370,36 @@ int env_init(void)
 		return -ENODEV;
 
 	if (ret == -ENOENT) {
+
+#if defined (CONFIG_TARGET_IMX8MM_IWG34M) || (CONFIG_TARGET_IMX8MN_IWG37M) || (CONFIG_TARGET_IMX8MM_IWG34S) || (CONFIG_TARGET_IMX8MN_IWG37S) || (CONFIG_TARGET_IMX8MM_IWG34M_Q7) || (CONFIG_TARGET_IMX8MN_IWG37M_Q7)
+	/* IWG34/IWG37: Support auto boot environment selection */
+        switch(get_boot_device()) {
+		
+		case MMC1_BOOT:
+	                gd->env_addr = (ulong)&default_environment_emmc[0];
+        	        gd->env_valid = ENV_VALID;
+			break;
+	
+                case SD1_BOOT:
+                        gd->env_addr = (ulong)&default_environment_sd1[0];
+                        gd->env_valid = ENV_VALID;
+                        break;
+
+		case SD2_BOOT:
+                        gd->env_addr = (ulong)&default_environment_sd2[0];
+                        gd->env_valid = ENV_VALID;
+                        break;
+                
+		default:
+                        gd->env_addr = (ulong)&default_environment[0];
+                        gd->env_valid = ENV_VALID;
+                        break;
+
+	}
+#else
 		gd->env_addr = (ulong)&default_environment[0];
 		gd->env_valid = ENV_VALID;
-
+#endif
 		return 0;
 	}
 

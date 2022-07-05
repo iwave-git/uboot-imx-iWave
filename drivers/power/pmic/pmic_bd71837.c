@@ -27,7 +27,12 @@ int power_bd71837_init (unsigned char bus) {
 	p->hw.i2c.tx_num = 1;
 	p->bus = bus;
 
+#if defined (CONFIG_TARGET_IMX8MM_IWG34M) || (CONFIG_TARGET_IMX8MM_IWG34S) || (CONFIG_TARGET_IMX8MM_IWG34M_Q7)
+	/*IWG34: changing pmic number*/
+	printf("power_bd71847_init\n");
+#else
 	printf("power_bd71837_init\n");
+#endif
 
 	return 0;
 }

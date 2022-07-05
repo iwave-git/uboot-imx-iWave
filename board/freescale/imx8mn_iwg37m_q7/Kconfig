@@ -1,0 +1,14 @@
+if TARGET_IMX8MN_IWG37M_Q7
+
+config SYS_BOARD
+	default "imx8mn_iwg37m_q7"
+
+config SYS_VENDOR
+	default "freescale"
+
+config SYS_CONFIG_NAME
+	default "imx8mn_iwg37m_q7"
+
+source "board/freescale/common/Kconfig"
+
+endif

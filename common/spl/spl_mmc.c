@@ -477,5 +477,10 @@ int spl_mmc_load_image(struct spl_image_info *spl_image,
 }
 
 SPL_LOAD_IMAGE_METHOD("MMC1", 0, BOOT_DEVICE_MMC1, spl_mmc_load_image);
+#if defined (CONFIG_TARGET_IMX8MM_IWG34M) || (CONFIG_TARGET_IMX8MN_IWG37M) || (CONFIG_TARGET_IMX8MM_IWG34S) || (CONFIG_TARGET_IMX8MN_IWG37S) || (CONFIG_TARGET_IMX8MM_IWG34M_Q7) || (CONFIG_TARGET_IMX8MN_IWG37M_Q7)
+/* IWG34/IWG37: MMC: Changing MMC Boot Device Number */
+SPL_LOAD_IMAGE_METHOD("MMC0", 0, BOOT_DEVICE_MMC2, spl_mmc_load_image);
+#else
 SPL_LOAD_IMAGE_METHOD("MMC2", 0, BOOT_DEVICE_MMC2, spl_mmc_load_image);
+#endif
 SPL_LOAD_IMAGE_METHOD("MMC2_2", 0, BOOT_DEVICE_MMC2_2, spl_mmc_load_image);

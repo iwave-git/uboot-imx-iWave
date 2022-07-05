@@ -1,0 +1,29 @@
+if TARGET_IMX8MN_IWG37S
+
+config SYS_BOARD
+	default "imx8mn_iwg37s"
+
+config SYS_VENDOR
+	default "freescale"
+
+config SYS_CONFIG_NAME
+	default "imx8mn_iwg37s"
+
+config SDRAM_SIZE_1GB
+	bool "Support 1GB LPDDR4"
+	help
+	 Enable support for IWG34S 1GB LPDDR4 platform
+
+config SDRAM_SIZE_2GB
+	bool "Support 2GB LPDDR4"
+	help
+	 Enable support for IWG34S 2GB LPDDR4 platform
+
+config TARGET_IMX8MN_IWG37S_UUU
+	bool "imx8mn LPDDR4 IWG37S board UUU"
+	help
+	 Enable UUU tool Support for IWG37S platform
+
+source "board/freescale/common/Kconfig"
+
+endif

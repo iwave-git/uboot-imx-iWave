@@ -1,0 +1,39 @@
+if TARGET_IMX8MM_IWG34S
+
+config SYS_BOARD
+	default "imx8mm_iwg34s"
+
+config SYS_VENDOR
+	default "freescale"
+
+config SYS_CONFIG_NAME
+	default "imx8mm_iwg34s"
+
+config SDRAM_SIZE_1GB
+	bool "Support 1GB LPDDR4"
+	help 
+	 Enable support for IWG34S 1GB LPDDR4 platform
+
+config SDRAM_SIZE_2GB
+	bool "Support 2GB LPDDR4"
+	help 
+	 Enable support for IWG34S 2GB LPDDR4 platform
+
+config SDRAM_SIZE_4GB
+	bool "Support 4GB LPDDR4"
+	help 
+	 Enable support for IWG34S 4GB LPDDR4 platform
+
+config SDRAM_SIZE_8GB
+	bool "Support 8GB LPDDR4"
+	help 
+	 Enable support for IWG34S 8GB LPDDR4 platform
+
+config TARGET_IMX8MM_IWG34S_UUU
+	bool "imx8mm LPDDR4 IWG34S board UUU"	
+	help 
+	 Enable UUU tool Support for IWG34S platform
+
+source "board/freescale/common/Kconfig"
+
+endif
