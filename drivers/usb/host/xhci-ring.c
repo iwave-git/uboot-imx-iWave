@@ -225,7 +225,13 @@ static int prepare_ring(struct xhci_ctrl *ctrl, struct xhci_ring *ep_ring,
 		puts("WARN waiting for error on ep to be cleared\n");
 		return -EINVAL;
 	case EP_STATE_HALTED:
+#if defined (CONFIG_TARGET_IMX8MP_IWG40M)
+/* IWG40M: USB: Workaround for board reset when usb touch cable is connected */
+		debug("WARN halted endpoint, queueing URB anyway.\n");
+		return -EPIPE;
+#else
 		puts("WARN halted endpoint, queueing URB anyway.\n");
+#endif
 	case EP_STATE_STOPPED:
 	case EP_STATE_RUNNING:
 		debug("EP STATE RUNNING.\n");
