@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+/*
+ * Copyright (C) 2022 iWave System Technologies Pvt Ltd.
+ */
+
+/dts-v1/;
+
+#include "imx8mp-iwg40m.dts"
+
+/ {
+	vcc5v0_usb0: vcc5v0-usb0-regulator {
+		compatible = "regulator-fixed";
+		regulator-name = "vcc5v0_usb0";
+		regulator-always-on;
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		enable-active-high;
+        };
+};
+
+&usb3_phy0 {
+	vbus-supply = <&vcc5v0_usb0>;
+};

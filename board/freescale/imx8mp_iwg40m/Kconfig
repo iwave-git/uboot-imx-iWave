@@ -9,6 +9,10 @@ config SYS_VENDOR
 config SYS_CONFIG_NAME
 	default "imx8mp_iwg40m"
 
+config TYPEC
+        bool "iWave USB Type-C support"
+        default y
+
 source "board/freescale/common/Kconfig"
 
 endif

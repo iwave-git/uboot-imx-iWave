@@ -109,8 +109,8 @@ int ft_board_setup(void *blob, bd_t *bd)
 
 #ifdef CONFIG_SDRAM_SIZE_2GB
         reg[0] = cpu_to_fdt32(0x0);
-        reg[1] = cpu_to_fdt32(0x1E000000);
-        ret= fdt_setprop(fdt,fdt_path_offset(blob, "/reserved-memory/linux,cma"), "size", reg, sizeof(reg));
+        reg[1] = cpu_to_fdt32(0x28000000);
+        ret= fdt_setprop(blob,fdt_path_offset(blob, "/reserved-memory/linux,cma"), "size", reg, sizeof(reg));
         if(ret<0){
                 printf("Kernel FTD CMA memory range update is failed\n");
         }
@@ -264,6 +264,8 @@ static int init_usb_vbus(void)
 	return ret;
 }
 
+#ifdef CONFIG_TYPEC
+/*IWG40M: USB2.0-OTG Flashing support*/
 #define USB_TYPEC_SEL IMX_GPIO_NR(5, 5)
 
 static iomux_v3_cfg_t ss_mux_gpio[] = {
@@ -287,6 +289,7 @@ static int setup_typec(void)
 	gpio_direction_output(USB_TYPEC_SEL, 0);
 
 }
+#endif
 
 #ifdef CONFIG_USB_DWC3
 
@@ -371,9 +374,11 @@ static void dwc3_nxp_usb_phy_init(struct dwc3_device *dwc3)
 
 int board_usb_init(int index, enum usb_init_type init)
 {	
+	int ret = 0;
+#ifdef CONFIG_TYPEC
+/*IWG40M: USB2.0-OTG Flashing support*/
 	struct udevice *bus;
         struct udevice *i2c_dev = NULL;
-	int ret = 0;
 	uint8_t vbus_high = 0;
         uint8_t const value[3] = {0x07, 0x02, 0x03};
         uint8_t buf[1];
@@ -426,19 +431,25 @@ int board_usb_init(int index, enum usb_init_type init)
         }
 
         vbus_high = (buf[0] & 0x80) >> 7;
-
+#endif
 	imx8m_usb_power(index, true);
-
+#ifdef CONFIG_TYPEC
+/*IWG40M: USB2.0-OTG Flashing support*/
         if (tog_ss % 2)
                 ss_mux_select(TYPEC_POLARITY_CC1);
         else
                 ss_mux_select(TYPEC_POLARITY_CC2);
-
+#endif
         if (index == 0 && init == USB_INIT_DEVICE) {
+#ifdef CONFIG_TYPEC
+/*IWG40M: USB2.0-OTG Flashing support*/
 		gpio_direction_output(IMX_GPIO_NR(1, 13), 0);
+#endif
                 dwc3_nxp_usb_phy_init(&dwc3_device_data);
                 return dwc3_uboot_init(&dwc3_device_data);
         } else if (index == 0 && init == USB_INIT_HOST) {
+#ifdef CONFIG_TYPEC
+/*IWG40M: USB2.0-OTG Flashing support*/
                 /*Since vbus is shared between type-c port and usb 3.0 upper port in carrier card,
                  *don't drive the vbus if host connected to type-c port
                  *is already driving the vbus high.
@@ -446,6 +457,7 @@ int board_usb_init(int index, enum usb_init_type init)
                 if (!vbus_high)
                         gpio_direction_output(IMX_GPIO_NR(1, 13), 1);
                 return ret;
+#endif
         }
 
         return 0;
@@ -471,7 +483,10 @@ int board_usb_cleanup(int index, enum usb_init_type init)
 
 int board_init(void)
 {
+#ifdef CONFIG_TYPEC
+/*IWG40M: USB2.0-OTG Flashing support*/
         setup_typec();
+#endif
 
 #ifdef CONFIG_MXC_SPI
         setup_spi();
