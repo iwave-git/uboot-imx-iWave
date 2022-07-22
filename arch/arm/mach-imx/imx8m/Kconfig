@@ -110,6 +110,36 @@ config TARGET_IMX8MM_EVK
 	select ARCH_MISC_INIT
 	select SPL_CRYPTO if SPL
 
+config TARGET_IMX8MM_IWG34M 
+	bool "imx8mm LPDDR4 IWG34M board"
+	select IMX8MM
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select ARCH_MISC_INIT
+	select SPL_CRYPTO if SPL
+
+config TARGET_IMX8MM_IWG34M_Q7 
+	bool "imx8mm LPDDR4 IWG34M board"
+	select IMX8MM
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select ARCH_MISC_INIT
+	select SPL_CRYPTO if SPL
+
+config TARGET_IMX8MM_IWG34S 
+	bool "imx8mm LPDDR4 IWG34S board"
+	select IMX8MM
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select ARCH_MISC_INIT
+	select SPL_CRYPTO if SPL
+
 config TARGET_IMX8MM_DDR4_EVK
 	bool "imx8mm DDR4 EVK board"
 	select IMX8MM
@@ -154,6 +184,33 @@ config TARGET_KONTRON_MX8MM
 
 config TARGET_IMX8MN_EVK
 	bool "imx8mn LPDDR4 EVK board"
+	select IMX8MN
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select SPL_CRYPTO if SPL
+
+config TARGET_IMX8MN_IWG37M 
+	bool "imx8mn LPDDR4 IWG37M board"
+	select IMX8MN
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select SPL_CRYPTO if SPL
+
+config TARGET_IMX8MN_IWG37M_Q7 
+	bool "imx8mn LPDDR4 IWG37M board"
+	select IMX8MN
+	select SUPPORT_SPL
+	select IMX8M_LPDDR4
+	select FSL_CAAM
+	select FSL_BLOB
+	select SPL_CRYPTO if SPL
+
+config TARGET_IMX8MN_IWG37S 
+	bool "imx8mn LPDDR4 IWG37S board"
 	select IMX8MN
 	select SUPPORT_SPL
 	select IMX8M_LPDDR4
@@ -306,8 +363,14 @@ source "board/engicam/imx8mm/Kconfig"
 source "board/freescale/imx8mq_evk/Kconfig"
 source "board/freescale/imx8mq_val/Kconfig"
 source "board/freescale/imx8mm_evk/Kconfig"
+source "board/freescale/imx8mm_iwg34m/Kconfig"
+source "board/freescale/imx8mm_iwg34m_q7/Kconfig"
+source "board/freescale/imx8mm_iwg34s/Kconfig"
 source "board/freescale/imx8mm_val/Kconfig"
 source "board/freescale/imx8mn_evk/Kconfig"
+source "board/freescale/imx8mn_iwg37m/Kconfig"
+source "board/freescale/imx8mn_iwg37m_q7/Kconfig"
+source "board/freescale/imx8mn_iwg37s/Kconfig"
 source "board/freescale/imx8mp_evk/Kconfig"
 source "board/gateworks/venice/Kconfig"
 source "board/google/imx8mq_phanbell/Kconfig"

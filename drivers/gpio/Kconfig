@@ -495,6 +495,13 @@ config MPC8XXX_GPIO
 	  value setting, the open-drain feature, which can configure individual
 	  GPIOs to work as open-drain outputs, is supported.
 
+config IMX8M_UNUSED_GPIO
+        bool "iWave unused GPIO"
+        depends on DM_GPIO && (TARGET_IMX8MM_IWG34M || TARGET_IMX8MN_IWG37M || TARGET_IMX8MM_IWG34S || TARGET_IMX8MN_IWG37S || TARGET_IMX8MM_IWG34M_Q7 || TARGET_IMX8MN_IWG37M_Q7)
+        default n
+        help
+         Say yes here to set the unused GPIOs as input in iWG34 and iWG37 platform.
+
 config MPC83XX_SPISEL_BOOT
 	bool "Freescale MPC83XX SPISEL_BOOT driver"
 	depends on DM_GPIO && ARCH_MPC830X

@@ -455,6 +455,24 @@ config VIDEO_LCD_ROCKTECH_HIMAX8394F
 	Say Y here if you want to enable support for Rocktech Himax8394f
 	720*1280 DSI video mode panel.
 
+config VIDEO_LCD_RAYDIUM_RM67198
+        bool "RM67198 DSI LCD panel support"
+        depends on DM_VIDEO
+        select VIDEO_MIPI_DSI
+        default n
+        help
+        Say Y here if you want to enable support for Raydium RM67198
+        1080x1920 DSI video mode panel.
+
+config VIDEO_RASPBERRYPI_MIPI
+        bool "Raspberry Pi 7-inch display for IWG34S/IWG37S"
+        depends on DM_VIDEO
+        select VIDEO_MIPI_DSI
+        default n
+        help
+        Say Y here if you want to enable support for Raspberry Pi 7-inch display
+        video mode panel.
+
 config VIDEO_LCD_SSD2828
 	bool "SSD2828 bridge chip"
 	---help---
@@ -1071,5 +1089,23 @@ config VIDEO_ADV7535
 	help
 	Say Y here if you want to enable support for ADI ADV7535
 	DSI to HDMI connector, currently only support 1920x1080.
+
+config VIDEO_LT8912
+        bool "LT8912 MIPI DSI to HDMI connector"
+        depends on DM_VIDEO
+        select VIDEO_MIPI_DSI
+        default n
+        help
+        Say Y here if you want to enable support for LT8912 DSI to
+        LVDS/HDMI connector, currently HDMI only support 1920x1080.
+
+config VIDEO_LT8912_RGB
+        bool "LT8912 MIPI DSI to HDMI connector"
+        depends on DM_VIDEO
+        select VIDEO_MIPI_DSI
+        default n
+        help
+        Say Y here if you want to enable support for LT8912 RGB DSI to
+        LVDS/HDMI connector, currently HDMI only support 1920x1080.
 
 endmenu

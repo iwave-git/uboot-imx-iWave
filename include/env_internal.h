@@ -114,6 +114,13 @@ extern env_t embedded_environment;
 extern char default_environment[];
 #else
 extern const char default_environment[];
+#if defined (CONFIG_TARGET_IMX8MM_IWG34M) || (CONFIG_TARGET_IMX8MN_IWG37M) || (CONFIG_TARGET_IMX8MM_IWG34S) || (CONFIG_TARGET_IMX8MN_IWG37S) || (CONFIG_TARGET_IMX8MM_IWG34M_Q7) || (CONFIG_TARGET_IMX8MN_IWG37M_Q7)
+/* IWG34/IWG37: Declare default environment for boot device */
+extern const unsigned char default_environment_emmc[];
+extern const unsigned char default_environment_sd1[];
+extern const unsigned char default_environment_sd2[];
+#endif
+
 #endif
 
 #ifndef DO_DEPS_ONLY

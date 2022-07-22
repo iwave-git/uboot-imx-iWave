@@ -118,6 +118,10 @@ void reset_cpu(void)
 	sysreset_walk_halt(SYSRESET_WARM);
 }
 
+#if defined (CONFIG_TARGET_IMX8MM_IWG34M_Q7) || (CONFIG_TARGET_IMX8MN_IWG37M_Q7)
+/* IWG34/IWG37: Display: Adding display reset before resetting the board */
+void lvds_reset(int);
+#endif
 
 #if IS_ENABLED(CONFIG_SYSRESET_CMD_RESET)
 int do_reset(struct cmd_tbl *cmdtp, int flag, int argc, char *const argv[])
@@ -134,6 +138,9 @@ int do_reset(struct cmd_tbl *cmdtp, int flag, int argc, char *const argv[])
 	printf("resetting ...\n");
 	mdelay(100);
 
+#if defined (CONFIG_TARGET_IMX8MM_IWG34M_Q7) || (CONFIG_TARGET_IMX8MN_IWG37M_Q7)
+        lvds_reset(TURN_OFF);
+#endif
 	sysreset_walk_halt(reset_type);
 
 	return 0;
