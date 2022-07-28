@@ -280,6 +280,7 @@
 
 &usbotg1 { /* USB: USB OTG */
 	dr_mode = "otg";
+	status = "okay";
 };
 
 &usbotg2 { /* USB: USB HUB */

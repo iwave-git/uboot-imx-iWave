@@ -1406,10 +1406,17 @@ out:
  *
  * Return: status code
  */
+#ifdef CONFIG_TARGET_IMX8MM_IWG34S
+efi_status_t EFIAPI efi_register_protocol_notify(
+						const efi_guid_t *protocol,
+						struct efi_event *event,
+						void **registration)
+#else
 static efi_status_t EFIAPI efi_register_protocol_notify(
 						const efi_guid_t *protocol,
 						struct efi_event *event,
 						void **registration)
+#endif
 {
 	struct efi_register_notify_event *item;
 	efi_status_t ret = EFI_SUCCESS;

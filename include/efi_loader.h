@@ -214,6 +214,10 @@ extern const efi_guid_t efi_guid_rng_protocol;
 extern const efi_guid_t efi_guid_capsule_report;
 /* GUID of firmware management protocol */
 extern const efi_guid_t efi_guid_firmware_management_protocol;
+#ifdef CONFIG_TARGET_IMX8MM_IWG34S
+/* GUID for the ESRT */
+extern const efi_guid_t efi_esrt_guid;
+#endif
 /* GUID of memory only reset control */
 extern const efi_guid_t efi_memory_only_reset_control_guid;
 
@@ -559,6 +563,14 @@ struct efi_simple_file_system_protocol *efi_simple_file_system(
 
 /* open file from device-path: */
 struct efi_file_handle *efi_file_from_path(struct efi_device_path *fp);
+
+#ifdef CONFIG_TARGET_IMX8MM_IWG34S
+/* Registers a callback function for a notification event. */
+efi_status_t EFIAPI efi_register_protocol_notify(const efi_guid_t *protocol,
+                                                 struct efi_event *event,
+                                                 void **registration);
+efi_status_t efi_file_size(struct efi_file_handle *fh, efi_uintn_t *size);
+#endif
 
 /**
  * efi_size_in_pages() - convert size in bytes to size in pages

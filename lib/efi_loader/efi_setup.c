@@ -298,6 +298,13 @@ efi_status_t efi_init_obj_list(void)
 	if (ret != EFI_SUCCESS)
 		goto out;
 
+#ifdef CONFIG_TARGET_IMX8MM_IWG34S
+	if (IS_ENABLED(CONFIG_EFI_ESRT)) {
+		ret = efi_esrt_register();
+		if (ret != EFI_SUCCESS)
+			goto out;
+	}
+#endif
 	if (IS_ENABLED(CONFIG_EFI_TCG2_PROTOCOL)) {
 		ret = efi_tcg2_register();
 		if (ret != EFI_SUCCESS)
