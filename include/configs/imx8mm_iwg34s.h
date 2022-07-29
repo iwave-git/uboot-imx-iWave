@@ -20,7 +20,7 @@
 #include <asm/arch/imx-regs.h>
 #include "imx_env.h"
 
-#define BSP_VERSION                     "iW-PRGII-SC-01-R1.0-REL1.0a-Linux5.15.5"
+#define BSP_VERSION                     "iW-PRGII-SC-01-R1.0-REL0.1-Linux5.15.5"
 
 #define CONFIG_SYS_BOOTM_LEN		(32 * SZ_1M)
 #define CONFIG_SPL_MAX_SIZE		(148 * 1024)

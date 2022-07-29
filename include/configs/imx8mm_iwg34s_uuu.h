@@ -17,7 +17,7 @@
 
 #ifdef BSP_VERSION
 #undef BSP_VERSION
-#define BSP_VERSION     "iW-PRGII-SC-01-R1.0-REL1.0a-Linux5.15.5-UUU"
+#define BSP_VERSION     "iW-PRGII-SC-01-R1.0-REL0.1-Linux5.15.5-UUU"
 #endif
 
 #endif
